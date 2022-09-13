@@ -106,10 +106,10 @@ public class ProductManager {
         for (int i = 0; i < productsList.size() ; i++) {
             if (max < productsList.get(i).getPrice()) {
                 max = productsList.get(i).getPrice();
-                price = i;
-
             }
+            price = i;
         }
+
         System.out.println("Sản phẩm có giá cao nhất");
         System.out.println(productsList.get((int) price));
     }
