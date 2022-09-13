@@ -1,5 +1,6 @@
 package view;
 
+import controller.ProductManager;
 import model.Products;
 import storage.products.ProductFile;
 
@@ -13,7 +14,7 @@ public class MenuProduct {
     public void menu() {
         try {
             menuProduct();
-        }catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Vui lòng nhập lại dữ liệu");
             menu();
         }
@@ -39,14 +40,31 @@ public class MenuProduct {
             case 2:
 //                Thêm mới
                 addToProduct(productsList);
+                break;
             case 3:
 //                Cập nhập
+                editMenu();
+                break;
             case 4:
 //                Xóa
+                deleteMenu();
+                break;
             case 5:
 //                Sắp xếp
+                int choice1;
+                System.out.println("1. Sap xep tang dan");
+                System.out.println("2. Sap xep giam dan");
+                choice1 = Integer.parseInt(scanner.nextLine());
+                switch (choice1) {
+                    case 1:
+                        ProductManager.sortProductPriceAscending();
+                    case 2:
+                        ProductManager.sortProductByPriceDescending();
+                }
+                break;
             case 6:
 //                Tìm sản phẩm có giá trị đắt nhất
+                searchPrice();
             case 7:
 //                dọc từ file
                 menuReadFile();
@@ -63,6 +81,20 @@ public class MenuProduct {
                 menuProduct();
         }
 
+    }
+
+    private void deleteMenu() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Nhập mã sản phẩm cần xóa");
+        String productCode = scanner.nextLine();
+        deleteProduct(productCode);
+    }
+
+    public static void editMenu() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Nhập mã sản phẩm");
+        String productCode = scanner.nextLine();
+        editProducts(productCode);
     }
 
     private void addToProduct(List<Products> productsList) throws IOException {
@@ -83,7 +115,7 @@ public class MenuProduct {
         Scanner scanner3 = new Scanner(System.in);
         String describe = scanner3.nextLine();
 
-        checkProduct(productCode,name,price,amount,describe);
+        checkProduct(productCode, name, price, amount, describe);
 
     }
 
@@ -92,7 +124,7 @@ public class MenuProduct {
             System.out.println("Đã có sản phẩm");
         } else {
             System.out.println("Bạn đăng sản phẩm thành công");
-            addProduct(new Products(productCode,name,price,amount,describe));
+            addProduct(new Products(productCode, name, price, amount, describe));
             System.out.println("Mời bạn quay lại menu");
         }
         menuProduct();
