@@ -1,10 +1,12 @@
 package model;
 
-public class Products {
+import java.io.Serializable;
+
+public class Products implements Serializable, Comparable<Products> {
     private String productCode;
     private String name;
     private double price;
-    private int amount ;
+    private int amount;
     private String describe;
 
     public Products() {
@@ -57,15 +59,23 @@ public class Products {
     public void setDescribe(String describe) {
         this.describe = describe;
     }
+    public void display() {
+        System.out.println("Products: ");
+        System.out.println("productCode: " + getProductCode());
+        System.out.println("name: " + getName());
+        System.out.println("Price: " + getPrice());
+        System.out.println("Amount: " + getAmount());
+        System.out.println("Describe: " + getDescribe());
+
+    }
 
     @Override
     public String toString() {
-        return "Products{" +
-                "productCode='" + productCode + '\'' +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", amount=" + amount +
-                ", describe='" + describe + '\'' +
-                '}';
+        return "Products{" + "productCode='" + productCode + '\'' + ", name='" + name + '\'' + ", price=" + price + ", amount=" + amount + ", describe='" + describe + '\'' + '}';
+    }
+
+    @Override
+    public int compareTo(Products products) {
+        return 0;
     }
 }
